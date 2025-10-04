@@ -7,7 +7,6 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Kewit dark theme colors (concert venue vibes)
         background: '#0a0a0a',
         surface: '#1a1a1a',
         primary: {
@@ -15,10 +14,6 @@ module.exports = {
           blue: '#3b82f6',
           pink: '#ec4899',
         },
-        accent: {
-          cyan: '#06b6d4',
-          violet: '#8b5cf6',
-        }
       },
     },
   },

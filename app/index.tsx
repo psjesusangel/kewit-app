@@ -1,22 +1,9 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text } from 'react-native';
 
 export default function SplashScreen() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>🥝 Kewit</Text>
+    <View className="flex-1 bg-background items-center justify-center">
+      <Text className="text-white text-2xl">🥝 Kewit</Text>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#0a0a0a',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {
-    color: '#ffffff',
-    fontSize: 24,
-  },
-});
