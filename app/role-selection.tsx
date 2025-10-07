@@ -2,26 +2,29 @@ import { useState } from 'react';
 import { View, Text, Pressable } from 'react-native';
 import { useRouter } from 'expo-router';
 import OnboardingHeader from '../components/OnboardingHeader';
+import { useOnboarding } from '../lib/OnboardingContext';
 
 type Role = 'listener' | 'performer';
 
 export default function RoleSelectionScreen() {
   const router = useRouter();
+  const { data, updateData } = useOnboarding();
   const [selectedRole, setSelectedRole] = useState<Role | null>(null);
 
   const handleRoleSelect = (role: Role) => {
     setSelectedRole(role);
+    updateData('role', role);
     // Auto-advance after brief visual feedback
     setTimeout(() => {
-      router.push('/signup');
+      router.push('/signup-name');
     }, 300);
   };
 
   return (
     <View className="flex-1 bg-background">
-      <OnboardingHeader currentStep={1} totalSteps={3} />
+      <OnboardingHeader currentStep={1} totalSteps={4} />
 
-      <View className="flex-1 px-6 justify-center">
+      <View className="flex-1 px-6 pt-16">
         {/* Header */}
         <View className="mb-12">
           <Text className="text-white text-3xl font-bold text-center mb-3">
