@@ -5,6 +5,7 @@ type Role = 'listener' | 'performer';
 type OnboardingData = {
   role: Role | null;
   name: string;
+  handle: string;
   email: string;
   password: string;
 };
@@ -21,6 +22,7 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
   const [data, setData] = useState<OnboardingData>({
     role: null,
     name: '',
+    handle: '',
     email: '',
     password: '',
   });
@@ -33,6 +35,7 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
     setData({
       role: null,
       name: '',
+      handle: '',
       email: '',
       password: '',
     });
