@@ -40,7 +40,7 @@ export default function SignUpPasswordScreen() {
         },
       });
       if (error) throw error;
-      router.push('/permissions');
+      router.replace('/(tabs)');
     } catch (e: any) {
       setError(e.message);
     } finally {
@@ -52,7 +52,7 @@ export default function SignUpPasswordScreen() {
 
   return (
     <OnboardingLayout>
-      <OnboardingHeader currentStep={4} totalSteps={4} />
+      <OnboardingHeader currentStep={5} totalSteps={5} />
       <View className="flex-1 px-6 pt-8">
         <Text className="text-white text-3xl font-bold mb-3">Create a password</Text>
         <Text className="text-gray-400 text-base mb-8">

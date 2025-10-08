@@ -22,7 +22,7 @@ export default function RoleSelectionScreen() {
 
   return (
     <View className="flex-1 bg-background">
-      <OnboardingHeader currentStep={1} totalSteps={4} />
+      <OnboardingHeader currentStep={1} totalSteps={5} />
 
       <View className="flex-1 px-6 pt-16">
         {/* Header */}

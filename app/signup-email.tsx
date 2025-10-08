@@ -9,35 +9,40 @@ export default function SignUpEmailScreen() {
   const router = useRouter();
   const { data, updateData } = useOnboarding();
   const [email, setEmail] = useState(data.email);
-  const [error, setError] = useState('');
+  const [touched, setTouched] = useState(false); // Track if user has started typing
   const inputRef = useRef<TextInput>(null);
 
   useEffect(() => {
     requestAnimationFrame(() => {
-        inputRef.current?.focus();
+      inputRef.current?.focus();
     });
-    }, []);
+  }, []);
 
-  const validateEmail = (value: string): boolean => {
-    if (!value.trim()) return setError('Email is required'), false;
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(value)) return setError('Please enter a valid email'), false;
-    setError('');
-    return true;
-  };
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const isValid = emailRegex.test(email);
 
   const handleContinue = () => {
-    if (validateEmail(email)) {
+    if (isValid) {
       updateData('email', email.trim().toLowerCase());
       router.push('/signup-password');
     }
   };
 
-  const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const getBorderColor = () => {
+    if (!touched && !email) return 'border-gray-700'; // Initial state
+    if (isValid) return 'border-green-500'; // Valid email
+    return 'border-red-500'; // Invalid email
+  };
+
+  const getErrorMessage = () => {
+    if (!touched || !email) return null;
+    if (!isValid) return 'Please enter a valid email';
+    return null;
+  };
 
   return (
     <OnboardingLayout>
-      <OnboardingHeader currentStep={3} totalSteps={4} />
+      <OnboardingHeader currentStep={4} totalSteps={5} />
       <View className="flex-1 px-6 pt-8">
         <Text className="text-white text-3xl font-bold mb-3">What's your email?</Text>
         <Text className="text-gray-400 text-base mb-8">
@@ -46,23 +51,30 @@ export default function SignUpEmailScreen() {
 
         <TextInput
           ref={inputRef}
-          className={`bg-surface border-2 ${
-            error ? 'border-red-500' : isValid ? 'border-green-500' : 'border-gray-700'
-          } rounded-xl px-4 py-4 text-white text-lg`}
-          style={{ lineHeight: 22 }} 
+          className={`bg-surface border-2 ${getBorderColor()} rounded-xl px-4 py-4 text-white text-lg`}
+          style={{ lineHeight: 22 }}
           placeholder="you@example.com"
           placeholderTextColor="#6b7280"
           value={email}
           onChangeText={(text) => {
             setEmail(text);
-            if (error) validateEmail(text);
+            if (!touched) setTouched(true); // Mark as touched on first change
           }}
           autoCapitalize="none"
           keyboardType="email-address"
           returnKeyType="next"
           onSubmitEditing={handleContinue}
         />
-        {error ? <Text className="text-red-500 text-sm mt-2 ml-1">{error}</Text> : null}
+        
+        {/* Error Message */}
+        {getErrorMessage() && (
+          <Text className="text-red-500 text-sm mt-2 ml-1">{getErrorMessage()}</Text>
+        )}
+
+        {/* Success Indicator */}
+        {isValid && touched && (
+          <Text className="text-green-500 text-sm mt-2 ml-1">✓ Valid email</Text>
+        )}
 
         <Pressable
           className={`py-4 rounded-xl mt-8 ${

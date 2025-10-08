@@ -28,7 +28,7 @@ export default function SignUpNameScreen() {
   const handleContinue = () => {
     if (validateName(name)) {
       updateData('name', name.trim());
-      router.push('/signup-email');
+      router.push('/signup-username');
     }
   };
 
@@ -36,7 +36,7 @@ export default function SignUpNameScreen() {
 
   return (
     <OnboardingLayout>
-      <OnboardingHeader currentStep={2} totalSteps={4} />
+      <OnboardingHeader currentStep={2} totalSteps={5} />
       <View className="flex-1 px-6 pt-8">
         <Text className="text-white text-3xl font-bold mb-3">What's your name?</Text>
         <Text className="text-gray-400 text-base mb-8">
